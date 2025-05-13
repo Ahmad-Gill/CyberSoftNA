@@ -1,0 +1,64 @@
+# trigger:
+#   - Dev
+
+pool:
+  vmImage: 'windows-latest'
+
+variables:
+  - group: POC_ENV_testing_ConnecingcouplesFE  # Variable group for environment tokens
+
+steps:
+  # Use Node.js 22.x
+  - task: NodeTool@0
+    inputs:
+      versionSpec: '22.x'
+
+  # Install Angular CLI globally
+  - task: Npm@1
+    displayName: 'Install Angular CLI'
+    inputs:
+      command: custom
+      verbose: true
+      customCommand: 'install -g @angular/cli'
+
+  # Install dependencies
+  - task: Npm@1
+    displayName: 'NPM Install'
+    inputs:
+      command: 'install'
+      workingDir: '$(Build.SourcesDirectory)'
+
+  # Replace tokens in environment.ts using values from variable group
+  - task: qetza.replacetokens.replacetokens-task.replacetokens@5
+    displayName: 'Replace tokens in environment.ts'
+    inputs:
+      rootDirectory: '$(Build.SourcesDirectory)/src/environments/'
+      targetFiles: '**/environment.ts'
+      tokenPattern: rm  # Use __VARIABLENAME__ format
+      actionOnNoFiles: warn
+
+  # Build Angular project
+  - task: Npm@1
+    displayName: 'Build Angular Project'
+    inputs:
+      command: custom
+      verbose: false
+      customCommand: 'run build'
+
+  # Archive build artifacts
+  - task: ArchiveFiles@2
+    displayName: 'Archive Build Artifacts'
+    inputs:
+      rootFolderOrFile: '$(System.DefaultWorkingDirectory)/dist/connecting-couples/browser'
+      includeRootFolder: false
+      archiveType: zip
+      archiveFile: '$(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip'
+      replaceExistingArchive: true
+
+  # Publish the build artifacts
+  - task: PublishBuildArtifacts@1
+    displayName: 'Publish Build Artifacts'
+    inputs:
+      PathtoPublish: '$(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip'
+      ArtifactName: 'PCO_testing_ConnectingCouplesFE'
+      publishLocation: 'Container'

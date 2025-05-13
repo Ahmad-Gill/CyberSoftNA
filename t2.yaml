@@ -1,0 +1,123 @@
+trigger:
+- dev
+ 
+pool:
+  vmImage: 'windows-latest'
+ 
+variables:
+  # SQL Server & DB info
+  serverName: 'sqlserverbacpac.database.windows.net'
+  databaseName: 'DB-POS-updated'
+  username: 'bacpacuser'
+  password: 'bacpac@12'
+  sqlAdminUser: 'bacpacuser'
+  sqlAdminPassword: 'bacpac@12'
+  sqlServerName: 'sqlserverbacpac'
+  sqlDatabaseName: 'DB-POS-updated2'
+ 
+  # Backup file and artifact info
+  filenamee: 'backup_06-05-2025'
+  artifactName: '06-05-2025_backup_artifact'
+ 
+  # Blob Storage info
+  storageAccount: 'rgstoragebacpac1'
+  containerName: 'backup'
+  scriptContainerName: 'scriptupdate'
+  scriptFileName: 'script.sql'
+  fileName: '$(filenamee).bacpac'
+  azureSubscription: 'Windows Azure MSDN - Visual Studio Ultimate (6724e37f-1a98-4353-96d3-f11a8d3b45dc)'
+  resourceGroup: 'RB-DB-POC'
+ 
+stages:
+ 
+# Stage 1: Export DB to .bacpac and publish as artifact
+- stage: ExportAndPublish
+  displayName: 'Export SQL DB and Publish BACPAC'
+  jobs:
+  - job: ExportDB
+    displayName: 'Export DB and Create Artifact'
+    steps:
+    - task: UseDotNet@2
+      inputs:
+        packageType: 'sdk'
+        version: '8.x'
+        installationPath: $(Agent.ToolsDirectory)/dotnet
+ 
+    - script: |
+        dotnet tool install -g microsoft.sqlpackage
+      displayName: 'Install SqlPackage'
+ 
+    - script: |
+        sqlpackage /Action:Export ^
+          /ssn:$(serverName) ^
+          /sdn:$(databaseName) ^
+          /su:$(username) ^
+          /sp:$(password) ^
+          /tf:"$(Build.ArtifactStagingDirectory)\$(filenamee).bacpac"
+      displayName: 'Export Azure SQL DB to BACPAC'
+ 
+    - task: PublishBuildArtifacts@1
+      inputs:
+        PathtoPublish: '$(Build.ArtifactStagingDirectory)'
+        ArtifactName: '$(artifactName)'
+        publishLocation: 'Container'
+ 
+# Stage 2: Upload BACPAC to Azure Blob Storage
+- stage: UploadToBlob
+  displayName: 'Upload BACPAC to Azure Blob Storage'
+  dependsOn: ExportAndPublish
+  condition: succeeded()
+  jobs:
+  - job: UploadBacpac
+    displayName: 'Upload to Blob'
+    pool:
+      vmImage: 'windows-latest'
+    steps:
+    - task: DownloadPipelineArtifact@2
+      inputs:
+        artifact: $(artifactName)
+        path: $(Pipeline.Workspace)/$(artifactName)
+ 
+    - task: AzureFileCopy@6
+      displayName: 'Upload File To Blob Storage'
+      inputs:
+        SourcePath: '$(Pipeline.Workspace)/$(artifactName)/$(filenamee).bacpac'
+        azureSubscription: '$(azureSubscription)'
+        Destination: 'AzureBlob'
+        storage: '$(storageAccount)'
+        ContainerName: '$(containerName)'
+ 
+# Stage 3: Download script.sql from Blob and run it
+- stage: ModifyDB
+  displayName: 'Modify Original DB with script.sql from Blob'
+  dependsOn: UploadToBlob
+  condition: succeeded()
+  jobs:
+  - job: RunSQLScript
+    displayName: 'Run SQL Script from Blob'
+    pool:
+      vmImage: 'windows-latest'
+    steps:
+    - task: AzureCLI@2
+      displayName: 'Download script.sql from Blob Storage'
+      inputs:
+        azureSubscription: '$(azureSubscription)'
+        scriptType: 'ps'
+        scriptLocation: 'inlineScript'
+        inlineScript: |
+          az storage blob download `
+            --account-name $(storageAccount) `
+            --container-name $(scriptContainerName) `
+            --name $(scriptFileName) `
+            --file "$(Build.ArtifactStagingDirectory)\script.sql" `
+            --auth-mode key `
+            --output none
+      env:
+        AZURE_STORAGE_KEY: $(AzureStorageKey)  # Define this as a secret variable in your pipeline
+ 
+    - task: PowerShell@2
+      displayName: 'Run SQL Script with sqlcmd'
+      inputs:
+        targetType: 'inline'
+        script: |
+          sqlcmd -S $(serverName) -d $(databaseName) -U $(username) -P $(password) -i "$(Build.ArtifactStagingDirectory)\script.sql"

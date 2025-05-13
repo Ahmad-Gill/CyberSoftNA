@@ -1,0 +1,43 @@
+trigger: none
+
+pool:
+  vmImage: 'windows-latest'
+
+variables:
+  serverName: 'sqlserverbacpac.database.windows.net'
+  databaseName: 'DB-POS-original'
+  username: 'bacpacuser'
+  password: 'bacpac@12'
+  originalFileName: 'backup'
+  dacpacFilePath: '$(Agent.TempDirectory)/$(originalFileName).dacpac'
+  renamedDacpacPath: '$(Agent.TempDirectory)/$(originalFileName)_exported.dacpac'
+
+steps:
+- task: UseDotNet@2
+  inputs:
+    packageType: 'sdk'
+    version: '8.x'
+    installationPath: $(Agent.ToolsDirectory)/dotnet
+
+- script: |
+    dotnet tool install -g microsoft.sqlpackage
+  displayName: 'Install SqlPackage'
+
+- script: |
+    sqlpackage /Action:Extract ^
+      /SourceConnectionString:"Data Source=$(serverName);Initial Catalog=$(databaseName);User ID=$(username);Password=$(password)" ^
+      /TargetFile:"$(dacpacFilePath)"
+  displayName: 'Extract .dacpac from Source DB'
+
+- powershell: |
+    Rename-Item -Path "$(dacpacFilePath)" -NewName "$(renamedDacpacPath)"
+  displayName: 'Rename .dacpac to _exported'
+
+- script: |
+    sqlpackage /Action:Publish ^
+      /tsn:$(serverName) ^
+      /tdn:$(databaseName) ^
+      /tu:$(username) ^
+      /tp:$(password) ^
+      /sf:"$(renamedDacpacPath)"
+  displayName: 'Import renamed .dacpac into same DB'
