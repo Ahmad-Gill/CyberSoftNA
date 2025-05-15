@@ -1,8 +1,8 @@
 terraform {
   required_providers {
     azurerm = {
-      source  = "hashicorp/azurerm"
-      version = "~> 3.0"
+      source  = "hashicorp/azurerm"           
+      version = "~> 3.0"          #greater than equal to 3 but less than 4 
     }
   }
 
@@ -10,7 +10,7 @@ terraform {
 }
 
 provider "azurerm" {
-  features {}
+  features {}           #Initialize the provider correctly using default settings
 }
 
 resource "azurerm_resource_group" "rg" {
@@ -18,7 +18,7 @@ resource "azurerm_resource_group" "rg" {
   location = var.location
 }
 
-module "app_service_plan" {
+module "app_service_plan" {                   #the reasion of using module is that it does not create the reource here. Actually it refer to an other file 
   source              = "./AppServicePlan"
   resource_group_name = azurerm_resource_group.rg.name
   location            = var.location

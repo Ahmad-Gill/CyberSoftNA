@@ -84,30 +84,37 @@ stages:
             storage: '$(storageAccount)'
             ContainerName: '$(containerName)'
 
-# Stage 3: Import to New DB
+# Stage 3: Create New DB (Basic Plan) & Import .bacpac
 - stage: ImportToNewDB
-  displayName: 'Import BACPAC to New Azure SQL DB'
+  displayName: 'Create SQL DB (Basic) & Import BACPAC'
   dependsOn: UploadToBlob
   condition: succeeded()
   jobs:
-    - job: BackupJob
-      displayName: 'Set Filename Variables'
+    - job: ImportDB
+      displayName: 'Create SQL DB & Import'
       steps:
         - powershell: |
             $date = Get-Date -Format "dd-MM-yyyy"
             $filename = "backup_$date"
             $artifact = "backup_artifact_$date"
-            Write-Host "##vso[task.setvariable variable=filenamee;isOutput=true]$filename"
-            Write-Host "##vso[task.setvariable variable=artifactName;isOutput=true]$artifact"
-          name: SetVars
+            Write-Host "##vso[task.setvariable variable=filenamee]$filename"
+            Write-Host "##vso[task.setvariable variable=artifactName]$artifact"
 
-    - job: ImportDB
-      displayName: 'Import to New SQL DB'
-      dependsOn: BackupJob
-      variables:
-        filenamee: $[ dependencies.BackupJob.outputs['SetVars.filenamee'] ]
-        artifactName: $[ dependencies.BackupJob.outputs['SetVars.artifactName'] ]
-      steps:
+        - task: AzureCLI@2
+          displayName: 'Create Azure SQL DB (Basic Plan)'
+          inputs:
+            azureSubscription: '$(azureSubscription)'
+            scriptType: 'bash'
+            scriptLocation: 'inlineScript'
+            inlineScript: |
+              echo "Creating SQL DB: $(DatabaseName) in server: $(SqlServerName)"
+              az sql db create \
+                --name $(DatabaseName) \
+                --server $(SqlServerName) \
+                --resource-group $(resourceGroupName) \
+                --service-objective Basic
+            workingDirectory: $(System.DefaultWorkingDirectory)
+
         - task: UseDotNet@2
           inputs:
             packageType: 'sdk'
@@ -129,7 +136,9 @@ stages:
               /tdn:$(DatabaseName) ^
               /tu:$(dbusername) ^
               /tp:$(dbpassword)
-          displayName: 'Import .bacpac into New DB'
+          displayName: 'Import .bacpac into SQL DB (Basic)'
+
+
 
 
 # Stage 4: Modify DB with SQL script
@@ -143,5 +152,31 @@ stages:
       steps:
         - checkout: self
         - script: |
-            sqlcmd -S $(SqlServerName) -d $(DatabaseName) -U $(dbusername) -P $(dbpassword) -i "$(sqlScriptPath)"
-          displayName: 'Execute .sql Script with SQLCMD'
+            mkdir -p sql_logs
+            for file in sqlscripts/*.sql; do
+              logname="sql_logs/$(basename $file .sql).log"
+              echo "Running $file... Logging to $logname"
+              sqlcmd -S $(SqlServerName) -d $(DatabaseName) -U $(dbusername) -P $(dbpassword) -i "$file" > "$logname" 2>&1
+            done
+          displayName: 'Execute all .sql Scripts and Log Output'
+
+        - task: PublishBuildArtifacts@1
+          displayName: 'Publish SQLCMD Logs'
+          inputs:
+            PathtoPublish: 'sql_logs'
+            ArtifactName: 'SQLLogs'
+            publishLocation: 'Container'
+
+
+
+# - script: |
+#     for file in sqlscripts/*.sql; do
+#       echo "Running $file..."
+#       sqlcmd -S $(SqlServerName) -d $(DatabaseName) -U $(dbusername) -P $(dbpassword) -i "$file"
+#     done
+#   displayName: 'Execute all .sql Scripts with SQLCMD'
+
+
+
+
+
