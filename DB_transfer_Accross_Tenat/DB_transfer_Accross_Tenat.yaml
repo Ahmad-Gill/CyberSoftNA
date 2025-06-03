@@ -1,0 +1,133 @@
+trigger: none
+
+pool:
+  vmImage: 'windows-latest'
+
+variables:
+- group: POC-testing-synflow-vaiables
+
+stages:
+
+# Stage 1: Export Old SQL DB to BACPAC
+- stage: ExportOldDB
+  displayName: 'Export Old SQL DB to BACPAC'
+  jobs:
+  - job: SetVars
+    displayName: 'Set Filename Variables'
+    steps:
+      - powershell: |
+          $date = Get-Date -Format "dd-MM-yyyy"
+          $filename = "backup_$date"
+          $artifact = "backup_artifact_$date"
+          Write-Host "##vso[task.setvariable variable=filenamee;isOutput=true]$filename"
+          Write-Host "##vso[task.setvariable variable=artifactName;isOutput=true]$artifact"
+        name: SetVars
+
+  - job: ExportJob
+    displayName: 'Export Old DB and Publish Artifact'
+    dependsOn: SetVars
+    variables:
+      filenamee: $[ dependencies.SetVars.outputs['SetVars.filenamee'] ]
+      artifactName: $[ dependencies.SetVars.outputs['SetVars.artifactName'] ]
+    steps:
+      - task: UseDotNet@2
+        inputs:
+          packageType: 'sdk'
+          version: '8.x'
+
+      - script: dotnet tool install -g microsoft.sqlpackage
+        displayName: 'Install sqlpackage'
+
+      - script: |
+          echo "Exporting old DB to $(Build.ArtifactStagingDirectory)\$(filenamee).bacpac"
+          sqlpackage /Action:Export ^
+            /ssn:$(oldSqlServerName) ^
+            /sdn:$(oldDatabaseName) ^
+            /su:$(oldDbUsername) ^
+            /sp:$(oldDbPassword) ^
+            /tf:"$(Build.ArtifactStagingDirectory)\$(filenamee).bacpac"
+        displayName: 'Export Old SQL DB to .bacpac'
+
+      - task: PublishBuildArtifacts@1
+        inputs:
+          PathtoPublish: '$(Build.ArtifactStagingDirectory)'
+          ArtifactName: '$(artifactName)'
+          publishLocation: 'Container'
+
+# Stage 2: Upload BACPAC to Azure Blob
+- stage: UploadToBlob
+  displayName: 'Upload BACPAC to Blob Storage'
+  dependsOn: ExportOldDB
+  condition: succeeded()
+  jobs:
+    - job: UploadJob
+      displayName: 'Upload BACPAC File'
+      variables:
+        filenamee: $[ stageDependencies.ExportOldDB.SetVars.outputs['SetVars.filenamee'] ]
+        artifactName: $[ stageDependencies.ExportOldDB.SetVars.outputs['SetVars.artifactName'] ]
+      steps:
+        - task: DownloadPipelineArtifact@2
+          inputs:
+            artifact: $(artifactName)
+            path: $(Pipeline.Workspace)/$(artifactName)
+
+        - script: echo "Uploading: $(Pipeline.Workspace)/$(artifactName)/$(filenamee).bacpac"
+          displayName: 'Debug File Path'
+
+        - task: AzureFileCopy@6
+          displayName: 'Upload to Azure Blob'
+          inputs:
+            SourcePath: '$(Pipeline.Workspace)/$(artifactName)/$(filenamee).bacpac'
+            azureSubscription: '$(azureSubscription)'
+            Destination: 'AzureBlob'
+            storage: '$(storageAccount)'
+            ContainerName: '$(containerName)'
+
+# Stage 3: Import to New SQL DB
+- stage: ImportToNewDB
+  displayName: 'Create New SQL DB & Import BACPAC'
+  dependsOn: UploadToBlob
+  condition: succeeded()
+  jobs:
+    - job: ImportJob
+      displayName: 'Create DB and Import BACPAC'
+      variables:
+        filenamee: $[ stageDependencies.ExportOldDB.SetVars.outputs['SetVars.filenamee'] ]
+        artifactName: $[ stageDependencies.ExportOldDB.SetVars.outputs['SetVars.artifactName'] ]
+      steps:
+        - task: AzureCLI@2
+          displayName: 'Create New SQL DB (Basic Plan)'
+          inputs:
+            azureSubscription: '$(azureSubscription)'
+            scriptType: 'bash'
+            scriptLocation: 'inlineScript'
+            inlineScript: |
+              echo "Creating SQL DB: $(newDatabaseName) on server: $(newSqlServerName)"
+              az sql db create \
+                --name $(newDatabaseName) \
+                --server $(newSqlServerName) \
+                --resource-group $(resourceGroupName) \
+                --service-objective Basic
+
+        - task: UseDotNet@2
+          inputs:
+            packageType: 'sdk'
+            version: '8.x'
+
+        - script: dotnet tool install -g microsoft.sqlpackage
+          displayName: 'Install sqlpackage'
+
+        - task: DownloadPipelineArtifact@2
+          inputs:
+            artifact: $(artifactName)
+            path: $(Pipeline.Workspace)/$(artifactName)
+
+        - script: |
+            echo "Importing to: $(newDatabaseName)"
+            sqlpackage /Action:Import ^
+              /sf:"$(Pipeline.Workspace)\$(artifactName)\$(filenamee).bacpac" ^
+              /tsn:$(newSqlServerName) ^
+              /tdn:$(newDatabaseName) ^
+              /tu:$(newDbUsername) ^
+              /tp:$(newDbPassword)
+          displayName: 'Import into New SQL DB'

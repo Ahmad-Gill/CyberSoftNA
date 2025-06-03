@@ -169,12 +169,6 @@ stages:
 
 
 
-# - script: |
-#     for file in sqlscripts/*.sql; do
-#       echo "Running $file..."
-#       sqlcmd -S $(SqlServerName) -d $(DatabaseName) -U $(dbusername) -P $(dbpassword) -i "$file"
-#     done
-#   displayName: 'Execute all .sql Scripts with SQLCMD'
 
 
 
