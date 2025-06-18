@@ -3,11 +3,8 @@ terraform {
     azurerm = {
       source  = "hashicorp/azurerm"
       version = "~> 4.0"  #  azurerm  4.29.0  4 days ago
-
-
     }
   }
-  required_version = ">= 1.1.0"   #Terraform CLI   latest 1.12	4 days ago (14 May 2025)
 }
 
 provider "azurerm" {
@@ -17,34 +14,52 @@ provider "azurerm" {
 
 
 
-#------------------------------------------------------ Resource Group ------------------------------------------------
-resource "azurerm_resource_group" "rg" {
-  name     = "rg-poc-testing"
-  location = "centralus"
+
+
+module "resource_group" {
+  source           = "./modules/resource_group"
+  resource_group   = local.resource_group
+  tags             = local.tags
 }
-
-#------------------------------------------------------ App Service PLan ------------------------------------------------
-
-resource "azurerm_service_plan" "plan" {
-  name                = "asp-poc-testing"
-  location            = "centralus"
-  resource_group_name =azurerm_resource_group.rg.name
-
-  os_type   =  "Windows"
-  sku_name  = "F1"
+module "storage_account" {
+  source              = "./modules/storage_account"
+  resource_group   =module.resource_group.resource_group_outPut
+  storage_account=local.storage_account
+  tags             = local.tags
 }
 
 
-resource "azurerm_storage_account" "storage" {
-  name                     = "stgtestingmuhammadahmad" 
-  resource_group_name      = azurerm_resource_group.rg.name
-  location                 = azurerm_resource_group.rg.location
-  account_tier             = "Standard"
-  account_replication_type = "LRS"
 
-tags = {
-  environment  = "poc"
-  created_date = timestamp()
+
+module "compute" {
+  source = "./modules/compute"
+
+  asp_name               = var.asp_name
+  location               = var.location
+  rg_name                = local.resource_group.name
+  os_type                = var.os_type
+  app_service_plan_sku   = var.app_service_plan_sku
+  environment            = var.environment
+  creation_date          = var.creation_date
+  created_by             = var.created_by
+
+  app_service_1_name     = var.app_service_1_name
+  app_service_2_name     = var.app_service_2_name
 }
+module "database" {
+  source = "./modules/database"
 
+  sqlserver_name               = var.sqlserver_name
+  location               = var.location
+  rg_name                =  local.resource_group.name
+  sqlserverusername      =var.sqlserverusername
+  sqlserverpassword       =var.sqlserverpassword
+  DataBase_name            =var.DataBase_name
+  edition                 =var.edition
+  requested_service_objective_name=var.requested_service_objective_name
+  max_size_gb             =var.max_size_gb
+
+  environment            = var.environment
+  creation_date          = var.creation_date
+  created_by             = var.created_by
 }
