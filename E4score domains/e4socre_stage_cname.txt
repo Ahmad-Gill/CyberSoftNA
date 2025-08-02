@@ -1,0 +1,6 @@
+e4score-suite-stage.azurewebsites.net
+
+
+251E5B7DC82A55D72F20F9D9E7813C88FE29F457EB8921730A23063694DD379B
+
+e4suite-stg.e4score.com

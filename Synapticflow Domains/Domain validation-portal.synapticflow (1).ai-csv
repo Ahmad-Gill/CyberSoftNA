@@ -1,0 +1,3 @@
+﻿"Type","Host","Value","Status"
+"CNAME","portal","app-synflow-dev-cus-fe.azurewebsites.net","Failed"
+"TXT","asuid.portal","E54E824695CDA136638CB621F03D6AE3C9808F60D82FC1FB68A789F9AAB62466","Failed"

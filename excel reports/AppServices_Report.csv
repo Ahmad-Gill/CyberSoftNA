@@ -1,0 +1,127 @@
+﻿ResourceGroup,AppServiceName,AppServicePlan,OS,SKU,Stack,State,Location,DefaultDomain,AvgCPU(%),AvgMemory(MB)
+MaalGari-Production,MaalGariapi-Prod,MaalGari-Prod,Windows,F1,.NET 6.0,Running,UAE North,maalgariapi-prod.azurewebsites.net,0.59,145.09
+MaalGari-Production,Maal-Gaari-FE-Prod,MaalGari-Prod,Windows,F1,.NET 6.0,Running,UAE North,maal-gaari-fe-prod.azurewebsites.net,0.03,0.5
+MaalGari-Dev,Maal-Gaari-FE-dev,ASP-MaalGariDev-aa95,Windows,F1,.NET Framework 4.0,Running,UAE North,maal-gaari-fe-dev.azurewebsites.net,0.02,0.32
+MaalGari-Dev,MaalGariapi-Dev,ASP-MaalGariDev-aa95,Windows,F1,.NET 7.0,Running,UAE North,maalgariapi-dev.azurewebsites.net,0.51,170.44
+MaalGari-Dev,maalgaridemo,ASP-MaalGariDev-aa95,Windows,F1,.NET 6.0,Running,UAE North,maalgaridemo.azurewebsites.net,0.01,0.26
+DoverXSPOC,DoverXSPOC,ServicePlane70495d5-9170,Windows,F1,.NET Framework 4.0,Running,South Central US,doverxspoc.azurewebsites.net,0,0
+csnacms,csnacms,csnaServicePlan,Windows,F1,.NET Framework 4.0,Running,South Central US,csnacms.azurewebsites.net,0.01,0.18
+Akron-Dev,akron-dev,akron,Windows,F1,.NET Framework 4.0,Running,South Central US,akron-dev.azurewebsites.net,0,0
+Akron-Dev,akronapi-dev,akron,Windows,F1,.NET 8.0,Running,South Central US,akronapi-dev.azurewebsites.net,0,0
+DarwinRG,WPIS,ServicePlan5ece8232-9e52,Windows,F1,.NET Framework 4.0,Running,South Central US,wpis.azurewebsites.net,0.04,1.09
+DarwinRG,CybersoftDataInspector,ServicePlan5ece8232-9e52,Windows,F1,.NET Framework 4.0,Running,South Central US,cybersoftdatainspector.azurewebsites.net,0,0.1
+DetroitLions-Dev,DetroitLions-PWA,DetroitLions-F1,Windows,F1,.NET 8.0,Running,South Central US,detroitlions-pwa.azurewebsites.net,0.01,0.19
+DetroitLions-Dev,DetroitLions-API,DetroitLions-F1,Windows,F1,.NET 8.0,Running,South Central US,detroitlions-api.azurewebsites.net,0,0
+DetroitLions-Dev,DetroitLions-Portal,DetroitLions-F1,Windows,F1,.NET 8.0,Running,South Central US,detroitlions-portal.azurewebsites.net,0.03,0.47
+CSNADashboard,CSNADashboard,ServicePlan35760d32-bd8d,Windows,F1,.NET Framework 4.0,Running,South Central US,csnadashboard.azurewebsites.net,0,0
+epatientsystem,epatientsystem,ServicePlan35760d32-bd8d,Windows,F1,.NET Framework 4.0,Running,South Central US,epatientsystem.azurewebsites.net,0,0
+DarwinRG,rterunner,ServicePlan35760d32-bd8d,Windows,F1,.NET Framework 4.0,Stopped,South Central US,rterunner.azurewebsites.net,0,0
+RealInsightsRG,realinsights,ServicePlan9094fcaa-93ab,Windows,F1,.NET Framework 4.0,Running,South Central US,realinsights.azurewebsites.net,0,0
+KysekSML,SMLPortal,ServicePlan9094fcaa-93ab,Windows,F1,.NET Framework 4.0,Running,South Central US,smlportal.azurewebsites.net,1.2,25.23
+DarwinRG,cybersoftsoftcustomercare,ServicePlan9094fcaa-93ab,Windows,F1,.NET Framework 4.0,Running,South Central US,cybersoftsoftcustomercare.azurewebsites.net,0,0
+DoverTwg,twgMobileApp,ServicePlan9094fcaa-93ab,Windows,F1,.NET Framework 4.0,Stopped,South Central US,twgmobileapp.azurewebsites.net,0,0
+DoverTwg,cybersoftcams,ServicePlan9094fcaa-93ab,Windows,F1,.NET Framework 4.0,Running,South Central US,cybersoftcams.azurewebsites.net,0,0
+DEAResourceGroup,DoverTWG,Default1,Windows,F1,.NET Framework 4.0,Running,West US,dovertwg.azurewebsites.net,0.05,3.3
+DEAResourceGroup,doverWindrock,Default1,Windows,F1,.NET Framework 4.0,Running,West US,doverwindrock.azurewebsites.net,0.04,1.48
+Default-Web-WestUS,eyemeapp,Default1,Windows,F1,.NET Framework 4.0,Running,West US,eyemeapp.azurewebsites.net,0,0
+DEAResourceGroup,DoverSuite,Default1,Windows,F1,.NET Framework 4.0,Running,West US,doversuite.azurewebsites.net,0.08,1.7
+Qontango,qontangoapi2,Default1,Windows,F1,.NET Framework 4.0,Running,West US,qontangoapi2.azurewebsites.net,0,0
+Prospect-RG,prospect,Prospect-SP,Windows,F1,.NET Framework 4.0,Stopped,Central US,prospect.azurewebsites.net,0,0
+RTEShowCase-RG,RTEShowCase,RTEShowCase-SP,Windows,F1,.NET Framework 4.0,Running,Central US,rteshowcase.azurewebsites.net,0.12,2.59
+RSG-SIMPELLO-DEV,simpelloPortalDev,simpelloPortalDev,Windows,F1,.NET 6.0,Running,Central US,simpelloportaldev.azurewebsites.net,0,0
+RSG-SIMPELLO-DEV,simpellodevapi,simpelloPortalDev,Windows,F1,.NET 6.0,Running,Central US,simpellodevapi.azurewebsites.net,0,0
+RG-DigitalToken,DigitalTokenAPI,DigitalToken-F1-Free,Windows,F1,.NET 6.0,Running,Central US,digitaltokenapi.azurewebsites.net,0,0
+RG-DigitalToken,DigitalTokenPWA,DigitalToken-F1-Free,Windows,F1,.NET 6.0,Running,Central US,digitaltokenpwa.azurewebsites.net,0.01,0.31
+RG-DigitalToken,DigitalTokenDisplay,DigitalToken-F1-Free,Windows,F1,.NET 6.0,Running,Central US,digitaltokendisplay.azurewebsites.net,0,0.2
+RG-DigitalToken,DigitalTokenPortal,DigitalToken-F1-Free,Windows,F1,.NET 6.0,Running,Central US,digitaltokenportal.azurewebsites.net,0,0
+DarwinRG,rteapp,RRAppRTE,Linux,B1,.NET Core 3.1,Running,Central US,rteapp.azurewebsites.net,0,0
+DarwinRG,rterunnerapp,RRAppRTE,Linux,B1,.NET Core 3.1,Running,Central US,rterunnerapp.azurewebsites.net,2.38,65.48
+DarwinRG,rtecloud,ASP-CitrisDev-a810,Linux,F1,.NET Core 3.1,Running,Central US,rtecloud.azurewebsites.net,0,0
+CSNADashboard,csnaincwp,ASP-CitrisDev-a810,Linux,F1,PHP 8.0,Running,Central US,csnaincwp.azurewebsites.net,0,0
+embeddedmap,embeddedmap,embeddedmap,Windows,F1,.NET 6.0,Running,Central US,embeddedmap.azurewebsites.net,0,0.2
+embeddedmap,mulapp1,embeddedmap,Windows,F1,.NET 6.0,Running,Central US,mulapp1.azurewebsites.net,0,0.13
+embeddedmap,embeddedmapapi,embeddedmap,Windows,F1,.NET 6.0,Running,Central US,embeddedmapapi.azurewebsites.net,0.01,0.22
+KysekSML,keyseksmlapi,LPG-F1-Free,Windows,F1,.NET 6.0,Running,Central US,keyseksmlapi.azurewebsites.net,0.08,1.34
+RG-LPG,LPGBackendAPI,LPG-F1-Free,Windows,F1,.NET 6.0,Running,Central US,lpgbackendapi.azurewebsites.net,0,0
+RG-CSNADemos,CredoLabDemo,LPG-F1-Free,Windows,F1,.NET Framework 4.0,Running,Central US,credolabdemo.azurewebsites.net,0,0
+RG-CSNADemos,chips-prototype,LPG-F1-Free,Windows,F1,.NET Framework 4.0,Running,Central US,chips-prototype.azurewebsites.net,0,0
+RG-CSNADemos,PWA-CachedMedia-POC,LPG-F1-Free,Windows,F1,.NET Framework 4.0,Running,Central US,pwa-cachedmedia-poc.azurewebsites.net,0,0
+RG-CSNADemos,PacketGenerator,LPG-F1-Free,Windows,F1,.NET 6.0,Running,Central US,packetgenerator.azurewebsites.net,0,0
+AccessFusion-Dev,accessfusion-devapi,AccessFusion-Dev,Windows,D1,.NET 8.0,Running,Central US,accessfusion-devapi.azurewebsites.net,0.49,65.38
+Immrama-Dev,immrama,Immrama-Dev,Windows,F1,.NET 8.0,Running,Central US,immrama.azurewebsites.net,0,0.06
+Immrama-Dev,immrama-api,Immrama-Dev,Windows,F1,.NET 8.0,Running,Central US,immrama-api.azurewebsites.net,0,0
+Immrama-Dev,Immrama-webportal,Immrama-Dev,Windows,F1,.NET 8.0,Running,Central US,immrama-webportal.azurewebsites.net,0,0
+QontangoBot-RG,QontangoNew,QontangoNew,Windows,F1,.NET Framework 4.0,Running,Central US,qontangonew.azurewebsites.net,0.31,5.57
+RG-TRACKCURE-DEV-CUS,as-trackcure-dev-cus-api,asp-trackcure-dev-cus,Windows,D1,.NET 9.0,Running,Central US,as-trackcure-dev-cus-api.azurewebsites.net,0.51,27.62
+ConnectingCouples-Dev,ConnectingCouplesApi-dev,ConnectingCouples-Dev,Windows,D1,.NET 8.0,Running,Central US,connectingcouplesapi-dev.azurewebsites.net,0.73,83.41
+QonTango-Dev,QontangoTest2fe,QontangoTest2,Windows,D1,.NET 8.0,Running,Central US,qontangotest2fe.azurewebsites.net,0,0
+SynapticFlow-Dev,AccessFusionSynapticFlow-devapi,asp-synflowai-dev,Windows,D1,.NET 8.0,Running,Central US,accessfusionsynapticflow-devapi-f2dnh8g3f8fgh9e0.centralus-01.azurewebsites.net,0.69,108.54
+QT-ClientAccess-Stage,QT-ClientAccess-StageFe,QT-ClientAccess-Stage,Windows,B1,.NET 8.0,Running,Central US,qt-clientaccess-stagefe.azurewebsites.net,0.89,8.46
+QT-ClientAccess-Stage,QT-ClientAccess-StageApi,QT-ClientAccess-Stage,Windows,B1,.NET 8.0,Running,Central US,qt-clientaccess-stageapi.azurewebsites.net,0,0
+QonTango-Stage,qontangoClientAccessFE,QonTango-Stage,Windows,B1,.NET 8.0,Running,Central US,qontangoclientaccessfe.azurewebsites.net,0.09,0.09
+QonTango-Stage,QonTangoUtilityApi-Stage,QonTango-Stage,Windows,B1,.NET 8.0,Running,Central US,qontangoutilityapi-stage.azurewebsites.net,0,0
+QonTango-Stage,QonTangoFe-Stage,QonTango-Stage,Windows,B1,.NET 9.0,Running,Central US,qontangofe-stage.azurewebsites.net,0.72,8.39
+QonTango-Stage,QonTangoUtilityFe-Stage,QonTango-Stage,Windows,B1,.NET 8.0,Running,Central US,qontangoutilityfe-stage.azurewebsites.net,0.05,0.61
+QonTango-Stage,qontangoClientAccessApi,QonTango-Stage,Windows,B1,.NET 8.0,Running,Central US,qontangoclientaccessapi.azurewebsites.net,0,0
+QonTango-Stage,QonTangoApiStage,QonTango-Stage,Windows,B1,.NET 8.0,Running,Central US,qontangoapistage.azurewebsites.net,0.29,1.71
+Qontango,QontangoAutoAssignPortal,Qontango-AppServicePlan-Free,Windows,B1,.NET 6.0,Running,Central US,qontangoautoassignportal.azurewebsites.net,0.07,0.47
+Qontango,QontangoRevamp,Qontango-AppServicePlan-Free,Windows,B1,.NET 6.0,Stopped,Central US,qontangorevamp.azurewebsites.net,0,0
+Qontango,QontangoDataUtility,Qontango-AppServicePlan-Free,Windows,B1,.NET 6.0,Running,Central US,qontangodatautility.azurewebsites.net,0.01,0.09
+Qontango,qontangorevamp-api,Qontango-AppServicePlan-Free,Windows,B1,.NET 6.0,Running,Central US,qontangorevamp-api.azurewebsites.net,0,0
+Qontango,qontangofrontend,Qontango-AppServicePlan-Free,Windows,B1,.NET 6.0,Running,Central US,qontangofrontend.azurewebsites.net,1.35,9.02
+RG-CONNECTINGCOUPLES-PRD,as-connectingcouples-prd-cus-fe,asp-connectingcouples-prd-cus-fe,Linux,P0v3,Node.js 22-lts,Running,Central US,as-connectingcouples-prd-cus-fe-grhhahfhfdendhby.centralus-01.azurewebsites.net,2.77,391.59
+ConnectingCouples-STG,app-connectingcouples-centralus-stg,asp-connectingcouples-stg,Linux,B1,Node.js 22-lts,Running,Central US,app-connectingcouples-centralus-stg-geafhegcafefe6f7.centralus-01.azurewebsites.net,0,0
+QT-ClientAccess-Dev,QT-ClientAccess-DevFe,QT-ClientAccess-Dev,Windows,D1,.NET 8.0,Running,Central US,qt-clientaccess-devfe.azurewebsites.net,0,0.2
+QT-ClientAccess-Dev,QT-ClientAccess-DevApi,QT-ClientAccess-Dev,Windows,D1,.NET 8.0,Running,Central US,qt-clientaccess-devapi.azurewebsites.net,0,0
+RG-PAPICARE-DEV-CUS,as-papicare-dev-cus-fe,asp-papicare-dev-cus,Windows,D1,.NET Framework 4.0,Running,Central US,as-papicare-dev-cus-fe.azurewebsites.net,0.17,10.6
+RG-PAPICARE-DEV-CUS,as-papicare-dev-cus-api,asp-papicare-dev-cus,Windows,D1,.NET 9.0,Running,Central US,as-papicare-dev-cus-api.azurewebsites.net,0.11,5.13
+ConnectingCouples-Dev,app-connectingcouples-centralus-dev,asp-connectingcouples-dev,Linux,B1,Node.js 22-lts,Running,Central US,app-connectingcouples-centralus-dev-b8ghe0awfab4h2d9.centralus-01.azurewebsites.net,15.14,107.77
+RG-TRACKCURE-DEV-CUS,app-trackcure-dev-cus-fe,asp-trackcure-dev-cus-fe,Linux,B1,Node.js 20-lts,Running,Central US,app-trackcure-dev-cus-fe.azurewebsites.net,0.17,3.12
+rg-voice-chatbot,voice-chatbot-backend,appservice-voice-chatbotplan,Linux,B1,Python 3.12,Running,Central US,voice-chatbot-backend-cuecc9axbbemanek.centralus-01.azurewebsites.net,31.94,18.74
+ConnectingCouples-STG,ConnectingCouplesApi-stg,ConnectingCouples-Stg,Windows,B1,.NET 8.0,Running,Central US,connectingcouplesapi-stg-cfekb7gdccejbcfc.centralus-01.azurewebsites.net,0,0
+ConnectingCouples-STG,ConnectingCouples-Api-stg,ConnectingCouples-Stg,Windows,B1,.NET 8.0,Stopped,Central US,connectingcouples-api-stg-c4hrbtgda7a4ejca.centralus-01.azurewebsites.net,0,0
+SynapticFlow-Dev,as-synapticflowaccessfusion-dev-cus-fe,asp-synapticflow-web-dev,Linux,B1,Node.js 22-lts,Running,Central US,as-synapticflowaccessfusion-dev-cus-fe.azurewebsites.net,3.27,17.24
+SynapticFlow-Dev,app-synaptic-flow-centraus-dev,asp-synapticflow-web-dev,Linux,B1,Node.js 22-lts,Running,Central US,app-synaptic-flow-centraus-dev-gbbthuceaqbrdgf8.centralus-01.azurewebsites.net,17.29,93.87
+RG-CONNECTINGCOUPLES-PRD,as-connectingcouples-prd-cus-api,asp-connectingcouples-prd-cus-api,Windows,S1,.NET 8.0,Running,Central US,as-connectingcouples-prd-cus-api-euhgd9adczg7engx.centralus-01.azurewebsites.net,1.24,18.75
+RG-CONNECTINGCOUPLES-PRD,as-connectingcouples-accessfusion-prd-api,asp-connectingcouples-prd-cus-api,Windows,S1,.NET 8.0,Running,Central US,as-connectingcouples-accessfusion-prd-api-fygbgwaadtedgtb7.centralus-01.azurewebsites.net,7.04,50.75
+csnainc,csnainc,FreeAppServicePlan,Windows,S1,.NET Framework 4.0,Stopped,Central US,csnainc.azurewebsites.net,0.52,9.91
+DigitalToken,remotedigitaltoken,FreeAppServicePlan,Windows,S1,.NET Framework 4.0,Stopped,Central US,remotedigitaltoken.azurewebsites.net,0.54,9.73
+citris,devcitris,FreeAppServicePlan,Windows,S1,.NET 6.0,Stopped,Central US,devcitris.azurewebsites.net,0.5,8.66
+CSNADashboard,defaultui,FreeAppServicePlan,Windows,S1,.NET Framework 4.0,Stopped,Central US,defaultui.azurewebsites.net,0.52,9.81
+IPSS_DEV,ipssdevapp,FreeAppServicePlan,Windows,S1,.NET Framework 4.0,Stopped,Central US,ipssdevapp.azurewebsites.net,0,0
+igitenterprise,ezcheckinpwa,FreeAppServicePlan,Windows,S1,.NET Framework 4.0,Stopped,Central US,ezcheckinpwa.azurewebsites.net,0.59,10.67
+DigitalToken,digitaltokencoreapi,FreeAppServicePlan,Windows,S1,.NET Framework 4.0,Running,Central US,digitaltokencoreapi.azurewebsites.net,0.71,20.03
+csnacms,bookqr,FreeAppServicePlan,Windows,S1,.NET Framework 4.0,Running,Central US,bookqr.azurewebsites.net,0.73,28.28
+IPSS,IPSSApp,FreeAppServicePlan,Windows,S1,.NET Framework 4.0,Stopped,Central US,ipssapp.azurewebsites.net,0,0
+RTEShowCase,rteshowcaseapp,FreeAppServicePlan,Windows,S1,.NET Framework 4.0,Stopped,Central US,rteshowcaseapp.azurewebsites.net,0,0
+CSNADashboard,QontangoMailMerge,FreeAppServicePlan,Windows,S1,.NET Framework 4.0,Stopped,Central US,qontangomailmerge.azurewebsites.net,0,0
+DigitalToken,digitaltoken,FreeAppServicePlan,Windows,S1,.NET Framework 4.0,Running,Central US,digitaltoken.azurewebsites.net,0.74,24.38
+Qontango,Qantagoapi-dev,FreeAppServicePlan,Windows,S1,.NET 6.0,Running,Central US,qantagoapi-dev.azurewebsites.net,1.79,62.97
+IPSS,IPSSAPI,FreeAppServicePlan,Windows,S1,.NET Framework 4.0,Stopped,Central US,ipssapi.azurewebsites.net,0,0
+IPSS_DEV,ipssdevapi,FreeAppServicePlan,Windows,S1,.NET Framework 4.0,Stopped,Central US,ipssdevapi.azurewebsites.net,0,0
+Qontango,Qontango,FreeAppServicePlan,Windows,S1,.NET Framework 4.0,Running,Central US,qontango.azurewebsites.net,0.12,0.18
+CSNA_Products,digitaltokencsna,FreeAppServicePlan,Windows,S1,.NET Framework 4.0,Stopped,Central US,digitaltokencsna.azurewebsites.net,0.51,9.67
+CSNADashboard,idsign,FreeAppServicePlan,Windows,S1,.NET Framework 4.0,Running,Central US,idsign.azurewebsites.net,0.77,24.71
+MoultrieFeeder,moultriefeederportal,FreeAppServicePlan,Windows,S1,.NET Framework 4.0,Stopped,Central US,moultriefeederportal.azurewebsites.net,0.62,10.66
+citris,devcitrisapi,FreeAppServicePlan,Windows,S1,.NET 6.0,Stopped,Central US,devcitrisapi.azurewebsites.net,0.51,8.66
+DigitalToken,digitaltoken-display,FreeAppServicePlan,Windows,S1,.NET Framework 4.0,Running,Central US,digitaltoken-display.azurewebsites.net,0.78,24.36
+RG-CSNADemos,csnaqms,FreeAppServicePlan,Windows,S1,.NET Framework 4.0,Running,Central US,csnaqms.azurewebsites.net,0.78,24.82
+HeartFinder_ResourceGroup,HeartFinderPortal,FreeAppServicePlan,Windows,S1,.NET Framework 4.0,Running,Central US,heartfinderportal.azurewebsites.net,0,0
+CSNA_Products,rtecsna,FreeAppServicePlan,Windows,S1,.NET 5.0,Stopped,Central US,rtecsna.azurewebsites.net,0,0
+KysekSML,moultriefeedersapi,FreeAppServicePlan,Windows,S1,.NET Framework 4.0,Stopped,Central US,moultriefeedersapi.azurewebsites.net,0.56,10.21
+Qontango,devqontangoportal,FreeAppServicePlan,Windows,S1,.NET 6.0,Running,Central US,devqontangoportal.azurewebsites.net,1.08,23.88
+RTEProductRecommender,RTEProductRecommender,FreeAppServicePlan,Windows,S1,.NET Framework 4.0,Stopped,Central US,rteproductrecommender.azurewebsites.net,0,0
+CampBowWow,ibeacongateway,FreeAppServicePlan,Windows,S1,.NET Framework 4.0,Stopped,Central US,ibeacongateway.azurewebsites.net,0.52,9.91
+DigitalToken,digitaltokenassistantapi,FreeAppServicePlan,Windows,S1,.NET Framework 4.0,Running,Central US,digitaltokenassistantapi.azurewebsites.net,0.62,16.73
+csnacms,bookqrportal,FreeAppServicePlan,Windows,S1,.NET Framework 4.0,Running,Central US,bookqrportal.azurewebsites.net,0.75,24.83
+DigitalToken,digitaltoken-teller,FreeAppServicePlan,Windows,S1,.NET Framework 4.0,Running,Central US,digitaltoken-teller.azurewebsites.net,0.75,24.39
+CSNA_Products,CMSCSNA,FreeAppServicePlan,Windows,S1,.NET 5.0,Stopped,Central US,cmscsna.azurewebsites.net,0,0
+RSG-SIMPELLO-DEV,dev-simpello-htng-api,free,Windows,F1,.NET 6.0,Running,East US,dev-simpello-htng-api.azurewebsites.net,0,0
+EMS-SafetyVerse,dev-safety-verse,dev-safety-verse,Windows,D1,.NET 8.0,Running,East US,dev-safety-verse.azurewebsites.net,0.01,0.27
+SynapticFlow-Dev,synapticflow-backend-dev,dev-apps-plan,Windows,F1,.NET 8.0,Running,East US,synapticflow-backend-dev-f5b2dcgya7cuaxbq.eastus-01.azurewebsites.net,2.85,101.92
+RG-CSNADemos,demo-csnainc,Default1,Windows,F1,.NET 6.0,Running,East US,demo-csnainc.azurewebsites.net,0,0
+RG-CSNADemos,pbiz,Default1,Windows,F1,.NET Framework 4.0,Running,East US,pbiz.azurewebsites.net,0,0
+QonTango-Dev,QontangoTest-Api,QontangoTest,Windows,D1,.NET 8.0,Running,East US,qontangotest-api.azurewebsites.net,0,0.06
+QonTango-Dev,QontangoTest-fe,QontangoTest,Windows,D1,.NET 8.0,Running,East US,qontangotest-fe.azurewebsites.net,0,0
+Chips-Dev,chipspwa-dev-fe,Chips-Dev,Windows,F1,.NET Framework 4.0,Running,East US,chipspwa-dev-fe.azurewebsites.net,0.26,11.92
+Chips-Dev,Chips-PWAApi-Dev,Chips-Dev,Windows,F1,.NET 8.0,Running,East US,chips-pwaapi-dev.azurewebsites.net,0.04,0.2
